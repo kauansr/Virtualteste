@@ -39,7 +39,7 @@
     
         function carregarProduto() {
             $.ajax({
-                url: '../../../api/produtos/listar_produto.php',
+                url: '../../../api/controllers/ProdutoController.php',
                 type: 'GET',  
                 dataType: 'json',  
                 success: function(data) {
@@ -85,7 +85,7 @@
                 
                 if (confirm('Tem certeza que deseja excluir este produto?')) {
                     $.ajax({
-                        url: '../../../api/produtos/produtoapi.php', 
+                        url: '../../../api/controllers/ProdutoController.php', 
                         type: 'DELETE',
                         data: { delete_produto: produtoId },
                         success: function(response) {

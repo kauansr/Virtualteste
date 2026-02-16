@@ -45,7 +45,7 @@
        
         function carregarDadosProduto(id) {
             $.ajax({
-                url: '../../../api/produtos/getProduto.php', 
+                url: '../../../api/controllers/getProduto.php', 
                 type: 'GET',
                 data: { id: id }, 
                 success: function(response) {

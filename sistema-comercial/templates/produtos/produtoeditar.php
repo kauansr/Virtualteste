@@ -49,7 +49,7 @@
        
         function carregarDadosProduto(id) {
             $.ajax({
-                url: '../../../api/produtos/getProduto.php', 
+                url: '../../../api/controllers/getProduto.php', 
                 type: 'GET',
                 data: { id: id },
                 success: function(response) {
@@ -84,7 +84,7 @@
 
             if (nome && descricao  && status) {
                 $.ajax({
-                    url: '../../../api/produtos/produtoapi.php',
+                    url: '../../../api/controllers/ProdutoController.php',
                     type: 'PUT',
                     data: {
                         produto_id: produtoId,

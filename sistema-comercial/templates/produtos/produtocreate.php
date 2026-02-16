@@ -49,7 +49,7 @@
                 var formData = $(this).serialize();  
 
                 $.ajax({
-                    url: '../../../api/produtos/produtoapi.php',  
+                    url: '../../../api/controllers/ProdutoController.php',  
                     method: 'POST',  
                     data: formData, 
                     success: function(response) {
