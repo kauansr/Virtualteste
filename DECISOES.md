@@ -19,10 +19,10 @@ Uso de ENUM para Status: A escolha do tipo ENUM para o status (Ativo/Inativo) é
 UUID para Produtos: Usar UUID no campo codigo_interno é uma prática recomendada para garantir que a identificação do produto seja única e não dependa de valores sequenciais, o que também facilita a escalabilidade.
 Relacionamento Muitos-para-Muitos: A tabela de junção produto_fornecedor permite que um produto tenha múltiplos fornecedores e vice-versa, o que é comum em sistemas comerciais onde um único produto pode ser oferecido por várias empresas.
 
-Utilizei uma estrutura MVC(model, view, controller) simples, pois é geralmente a melhor para projetos rapidos e bem estruturados, onde model + controller estão na pasta api/ tratando e usando o SQL e o view que seria o frontend + ajax enviando dados não
-tratados e recebendo um response.
+Utilizei uma estrutura MVC(model, view, controller) simples, pois é geralmente a melhor para projetos rapidos e bem estruturados, onde model faz os comandos SQL, View são os templates onde estão html que o usuario vai enviar os dados e receber e controller que ira controlar e tratar os dados antes de ir para o model, estão na pasta api/, onde são tratados e recebendo um response.
 
 
 # O que melhoraria se tivesse tempo
 Campos de Data de Atualização: Adicionar um campo atualizado_em nas tabelas, para saber quando um fornecedor ou produto foi modificado pela última vez.
-Validações de CNPJ e Email: Implementar validações mais robustas para o formato de CNPJ e email diretamente no banco de dados, para garantir maior integridade dos dados.
+Validações mais robustas: Implementar validações mais robustas para o formato de CNPJ e email diretamente no banco de dados, para garantir maior integridade dos dados.
+Melhoria na estrutura visual: Melhoraria e deixaria mais interativo a parte do usuario para melhor experiencia.

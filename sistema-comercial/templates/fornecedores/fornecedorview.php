@@ -48,7 +48,7 @@
        
         function carregarDadosFornecedor(id) {
             $.ajax({
-                url: '../../../api/fornecedores/getFornecedor.php', 
+                url: '../../../api/controllers/getFornecedor.php', 
                 type: 'GET',
                 data: { id: id }, 
                 success: function(response) {

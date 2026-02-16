@@ -41,7 +41,7 @@
     
         function carregarFornecedores() {
             $.ajax({
-                url: '../../../api/fornecedores/listar_fornecedores.php',
+                url: '../../../api/controllers/FornecedorController.php',
                 type: 'GET',  
                 dataType: 'json',  
                 success: function(data) {
@@ -88,7 +88,7 @@
                 
                 if (confirm('Tem certeza que deseja excluir este fornecedor?')) {
                     $.ajax({
-                        url: '../../../api/fornecedores/adicionarfornecedor.php', 
+                        url: '../../../api/controllers/FornecedorController.php', 
                         type: 'DELETE',
                         data: { delete_fornecedor: fornecedorId },
                         success: function(response) {

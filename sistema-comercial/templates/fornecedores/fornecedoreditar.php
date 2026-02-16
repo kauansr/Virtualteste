@@ -56,7 +56,7 @@
        
         function carregarDadosFornecedor(id) {
             $.ajax({
-                url: '../../../api/fornecedores/getFornecedor.php', 
+                url: '../../../api/controllers/getFornecedor.php', 
                 type: 'GET',
                 data: { id: id },
                 success: function(response) {
@@ -95,7 +95,7 @@
 
             if (nome && cnpj && email && telefone && status) {
                 $.ajax({
-                    url: '../../../api/fornecedores/adicionarfornecedor.php',
+                    url: '../../../api/controllers/FornecedorController.php',
                     type: 'PUT',
                     data: {
                         fornecedor_id: fornecedorId,
