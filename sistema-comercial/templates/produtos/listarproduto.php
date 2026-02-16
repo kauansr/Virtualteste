@@ -59,6 +59,7 @@
                                     <td>
                                         <a href="produtoview.php?id=${produto.id}">Visualizar</a>
                                         <a href="produtoeditar.php?id=${produto.id}">Editar</a>
+                                        <a href="../produtofornecedor/produtofornecedorcreate.php">Criar relacao</a>
                                         <button class="delete-btn" data-id="${produto.id}">Excluir</button>
                                     </td>
                                 </tr>
