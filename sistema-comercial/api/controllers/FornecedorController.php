@@ -2,6 +2,7 @@
 session_start();
 require '../../database.php';
 require '../models/Fornecedor.php';
+require '../utils/tratarNomes.php';
 
 class FornecedorController {
     private $fornecedor;
@@ -26,14 +27,14 @@ class FornecedorController {
     public function cadastrarFornecedor() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
 
-        $nome = trim($_POST['nome'] ?? '');
+        $nometratado = tratarNome($_POST['nome'] ?? '');
         $cnpj = trim($_POST['cnpj'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $telefone = trim($_POST['telefone'] ?? '');
         $status = trim($_POST['status'] ?? '');
 
       
-        if (!$nome || !$cnpj || !$email) {
+        if (!$nometratado || !$cnpj || !$email) {
             echo "Por favor, preencha todos os campos obrigatórios!";
             return;
         }
@@ -43,7 +44,7 @@ class FornecedorController {
         }
 
       
-        if ($this->fornecedor->cadastrar($nome, $cnpj, $email, $telefone, $status)) {
+        if ($this->fornecedor->cadastrar($nometratado, $cnpj, $email, $telefone, $status)) {
             echo "Fornecedor cadastrado com sucesso!";
         } else {
             echo "Erro ao cadastrar fornecedor!";
@@ -57,13 +58,13 @@ class FornecedorController {
         parse_str(file_get_contents("php://input"), $data);
 
         $id = $data['fornecedor_id'] ?? null;
-        $nome = trim($data['nome'] ?? '');
+        $nometratado = tratarNome($data['nome'] ?? '');
         $cnpj = trim($data['cnpj'] ?? '');
         $email = trim($data['email'] ?? '');
         $telefone = trim($data['telefone'] ?? '');
         $status = trim($data['status'] ?? '');
 
-        if (!$id || !$nome || !$cnpj || !$email) {
+        if (!$id || !$nometratado || !$cnpj || !$email) {
             echo "Dados insuficientes para atualizar fornecedor.";
             return;
         }
@@ -72,7 +73,7 @@ class FornecedorController {
             return;
         }
 
-        if ($this->fornecedor->atualizar($id, $nome, $cnpj, $email, $telefone, $status)) {
+        if ($this->fornecedor->atualizar($id, $nometratado, $cnpj, $email, $telefone, $status)) {
             echo json_encode(['status' => 'success', 'message' => 'Fornecedor atualizado.']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Erro ao atualizar fornecedor!']);

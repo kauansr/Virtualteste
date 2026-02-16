@@ -46,43 +46,59 @@ class ProdutoFornecedorController {
         }
 
         $dados = $this->relation->listarPorProduto($produto_id);
-        echo json_encode($dados);
+        if ($dados){
+            echo json_encode(['status' => 'success', 'data' => $dados]);
+        }
+        else {
+            echo json_encode(['status' => 'error', 'message' => 'Relacoes não encontrado']);
+        }
     }
 
  
     public function excluir() {
+    $id = 0;
+
+   
+    if (isset($_POST['id'])) {
+        $id = intval($_POST['id']);
+    }
+
+    if (!$id) {
         parse_str(file_get_contents("php://input"), $data);
         $id = intval($data['id'] ?? 0);
-
-        if (!$id) {
-            echo "ID inválido.";
-            return;
-        }
-
-        if ($this->relation->excluir($id)) {
-            echo "Relação removida.";
-        } else {
-            echo "Erro ao remover.";
-        }
     }
+
+    if (!$id) {
+        echo "ID inválido.";
+        return;
+    }
+
+    if ($this->relation->excluir($id)) {
+        echo "Relação removida com sucesso!";
+    } else {
+        echo "Erro ao remover vínculo.";
+    }
+}
+
 
  
     public function removerEmMassa() {
-        $ids = $_POST['ids'] ?? [];
+    $ids = $_POST['ids'] ?? [];
 
-        if (empty($ids)) {
-            echo "Nenhum vínculo selecionado.";
-            return;
-        }
-
-        $ids = array_map('intval', $ids);
-
-        if ($this->relation->excluirVarios($ids)) {
-            echo "Vínculos removidos com sucesso!";
-        } else {
-            echo "Erro ao remover vínculos.";
-        }
+    if (!is_array($ids) || empty($ids)) {
+        echo "Nenhum vínculo selecionado.";
+        return;
     }
+
+    $ids = array_map('intval', $ids);
+
+    echo $this->relation->excluirVarios($ids)
+        ? "Vínculos removidos com sucesso!"
+        : "Erro ao remover vínculos.";
+}
+
+
+
 }
 
 $controller = new ProdutoFornecedorController($conn);
@@ -90,10 +106,14 @@ $controller = new ProdutoFornecedorController($conn);
 switch ($_SERVER['REQUEST_METHOD']) {
 
     case 'POST':
-        if (isset($_POST['remover_massa'])) {
+        $action = $_POST['action'] ?? '';
+
+        if ($action === 'removerEmMassa' && isset($_POST['ids'])) {
             $controller->removerEmMassa();
+        } elseif ($action === 'remover' && isset($_POST['id'])) {
+            $controller->excluir();
         } else {
-            $controller->cadastrar();
+            $controller->cadastrar(); 
         }
         break;
 
@@ -109,3 +129,4 @@ switch ($_SERVER['REQUEST_METHOD']) {
         echo "Método inválido!";
         break;
 }
+

@@ -2,6 +2,7 @@
 session_start();
 require '../../database.php';
 require '../models/Produto.php';
+require '../utils/tratarnomes.php';
 
 class ProdutoController {
     private $produto;
@@ -26,19 +27,19 @@ class ProdutoController {
     public function cadastrarProduto() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
 
-        $nome = trim($_POST['nome'] ?? '');
+        $nometratado = tratarNome($_POST['nome'] ?? '');
         $descricao = trim($_POST['descricao'] ?? '');
         $status = trim($_POST['status'] ?? '');
 
       
-        if (!$nome || !$descricao|| !$status) {
+        if (!$nometratado || !$descricao|| !$status) {
             echo "Por favor, preencha todos os campos obrigatórios!";
             return;
         }
       
 
       
-        if ($this->produto->cadastrar($nome, $descricao, $status)) {
+        if ($this->produto->cadastrar($nometratado, $descricao, $status)) {
             echo "Produto cadastrado com sucesso!";
         } else {
             echo "Erro ao cadastrar produto!";
@@ -52,17 +53,17 @@ class ProdutoController {
         parse_str(file_get_contents("php://input"), $data);
 
         $id = $data['produto_id'] ?? null;
-        $nome = trim($data['nome'] ?? '');
+        $nometratado = tratarNome($data['nome'] ?? '');
         $descricao= trim($data['descricao'] ?? '');
         $status = trim($data['status'] ?? '');
 
-        if (!$id || !$nome || !$descricao || !$status) {
+        if (!$id || !$nometratado || !$descricao || !$status) {
             echo "Dados insuficientes para atualizar produto.";
             return;
         }
      
 
-        if ($this->produto->atualizar($id, $nome, $descricao, $status)) {
+        if ($this->produto->atualizar($id, $nometratado, $descricao, $status)) {
             echo json_encode(['status' => 'success', 'message' => 'produto atualizado.']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Erro ao atualizar produto!']);
