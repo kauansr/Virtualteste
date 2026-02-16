@@ -1,7 +1,7 @@
 <?php
 define('HOST', 'localhost');
 define('USER', 'root');
-define('PASSWORD', '244466666');
+define('PASSWORD', 'senha');
 define('DB', 'sistema_comercial');
 
 
